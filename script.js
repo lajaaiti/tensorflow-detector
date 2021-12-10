@@ -21,20 +21,16 @@ function LVadjust(x) {
 
   return res;
 }
-
+//prediction:
 function predictWebcam() {
   model.detect(video).then(function (predictions) {
-    // Remove any highlighting we did previous frame.
     for (let i = 0; i < children.length; i++) {
       Cam.removeChild(children[i]);
     }
 
     children.splice(0);
 
-    // Now lets loop through predictions and draw them to the live view if
-    // they have a high confidence score.
     for (let n = 0; n < predictions.length; n++) {
-      // If we are over 66% sure we are sure we classified it right, draw it!
       if (predictions[n].score > 0.66) {
         const p = document.createElement("p");
         p.innerText =
@@ -71,7 +67,6 @@ function predictWebcam() {
       }
     }
 
-    // Call this function again to keep predicting when the browser is ready.
     window.requestAnimationFrame(predictWebcam);
   });
 }
